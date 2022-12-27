@@ -5,7 +5,7 @@ const protocol = JSON.parse(process.env.HTTPS) ? "https:" : "http:";
 const host = process.env.REACT_APP_PROXY_HOST
 const port = process.env.REACT_APP_PROXY_PORT
 
-module.exports = function(app) {
+export function temp(app) {
     app.use(
       '/rest',
       createProxyMiddleware({
