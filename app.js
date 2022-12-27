@@ -1,15 +1,15 @@
 import express from "express";
-// import * as url from "url";
-// const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
+import * as url from "url";
+const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 import {SignUp, Login, StoreData, EvaluateApplicantOptions, AdministratorFunction, Tutorial} from "./Controller/app_controller.js"
 
-const PORT = 3001 //| prsocess.env.PORT;
+const PORT = 3001 | prsocess.env.PORT;
 
 const app = express();
 app.use(express.json());
-/* if(process.env.NODE_ENV === "production"){
+if(process.env.NODE_ENV === "production"){
     app.use(express.static(path.resolve(__dirname, './frontend/build')));
-}*/
+}
 
 app.get("/load", Tutorial);
 
