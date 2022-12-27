@@ -1,5 +1,6 @@
 import express from "express";
 import * as url from "url";
+import path from "path";
 const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 import {SignUp, Login, StoreData, EvaluateApplicantOptions, AdministratorFunction, Tutorial} from "./Controller/app_controller.js"
 
