@@ -3,7 +3,7 @@ import * as url from "url";
 const __dirname = url.fileURLToPath(new URL(".", import.meta.url));
 import {SignUp, Login, StoreData, EvaluateApplicantOptions, AdministratorFunction, Tutorial} from "./Controller/app_controller.js"
 
-const PORT = 3001 | prsocess.env.PORT;
+const PORT = 3001 | process.env.PORT;
 
 const app = express();
 app.use(express.json());
