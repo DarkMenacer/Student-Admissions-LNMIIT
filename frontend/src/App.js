@@ -33,7 +33,7 @@ function App() {
       <Routes>
         {/* ----------ALL NO-LOGIN PAGES ROUTES---------- */}
 
-        <Route path="/" element={<Navbar />}>
+        <Route path="/#/" element={<Navbar />}>
           <Route index element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/faq" element={<Faq />} />
@@ -52,7 +52,7 @@ function App() {
         </Route>
 
         {/* After-Login Pages (First Time Login) =>  */}
-        <Route path="/applicant/">
+        <Route path="/#/applicant/">
           <Route path="first_login/" element={<FirstTimeLogin />}>
             <Route index element={<PersonalDetails />} />
             <Route path="2" element={<AcademicDetails />} />
@@ -65,7 +65,7 @@ function App() {
           <Route path="allotment" element={<Allotment />} />
         </Route>
 
-        <Route path="/admin/">
+        <Route path="/#/admin/">
           <Route path="home" element={<AdminHome />} />
         </Route>
 
