@@ -24,7 +24,7 @@ app.post("/roundsEval", EvaluateApplicantOptions);
 
 app.post("/administrator", AdministratorFunction);
 
-app.get("*", (req, res) => {res.send("<h1>Error!</h1><br/><p>Change URL</p>");});
+app.get("*", (req, res) => {res.send("<h1>Error in fetching data!</h1><br/><p>Change URL to </p> <a href='https://student-admissions-lnmiit.up.railway.app/'>this </a>");});
 
 app.listen(PORT, async () => {
   console.clear();
