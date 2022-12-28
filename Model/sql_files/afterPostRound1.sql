@@ -33,7 +33,7 @@ DROP TABLE IF EXISTS "public"."applicants";
 -- Table Definition
 CREATE TABLE "public"."applicants" (
     "id" text NOT NULL,
-    "percentile" float4,
+    "mains_rank" float4,
     "prefs" _pref,
     "status" int4,
     "on_hold" bool,
@@ -95,7 +95,7 @@ INSERT INTO "public"."academicdetails" ("id", "board_10", "percentage_10", "yop_
 ('8', 'CBSE', 4334, 437437, 473437, 'ISC', 473437, 437437, 347437, 43347, 80),
 ('9', 'CBSE', 314124, 341341, 314134, 'ISC', 314341, 134341, 413431, 314341, 90);
 
-INSERT INTO "public"."applicants" ("id", "percentile", "prefs", "status", "on_hold") VALUES
+INSERT INTO "public"."applicants" ("id", "mains_rank", "prefs", "status", "on_hold") VALUES
 ('1', 10, '{"(CSE,0)"}', 0, 'f'),
 ('10', 100, '{"(CSE,5)","(MME,1)","(ECE,3)"}', -1, 'f'),
 ('2', 20, NULL, 0, 'f'),

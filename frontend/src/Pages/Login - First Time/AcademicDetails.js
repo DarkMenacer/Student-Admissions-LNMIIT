@@ -12,7 +12,7 @@ import { Academicdetails } from "../../Classes/Academicdetails";
 const AcademicDetails = () => {
   const [[progress, setProgress], [formData, setFormData]] = useOutletContext();
   const navigate = useNavigate();
-  // const [isError, setIsError] = useState(false);
+  const [isError, setIsError] = useState(false);
 
   //Use Ref Hooks
   const board10 = useRef(null);
@@ -31,31 +31,31 @@ const AcademicDetails = () => {
   const nextPage = "/applicant/first_login/3";
   const d = new Academicdetails();
 
-  // const handleError = (e) => {
-  //   console.log(e.target.value);
-  //   if (
-  //     e.target.value > 0 &&
-  //     e.target.value < 100 &&
-  //     onlyDigit.test(e.target.value) === true
-  //   ) {
-  //     setIsError(false);
-  //   } else {
-  //     setIsError(true);
-  //   }
-  // };
+  const handleError = (e) => {
+    console.log(e.target.value);
+    if (
+      e.target.value > 0 &&
+      e.target.value < 100 &&
+      onlyDigit.test(e.target.value) === true
+    ) {
+      setIsError(false);
+    } else {
+      setIsError(true);
+    }
+  };
 
-  // const handleYOP = (e) => {
-  //   console.log(e.target.value);
-  //   if (
-  //     e.target.value > 2017 &&
-  //     e.target.value < 2023 &&
-  //     onlyDigit.test(e.target.value) === true
-  //   ) {
-  //     setIsError(false);
-  //   } else {
-  //     setIsError(true);
-  //   }
-  // };
+  const handleYOP = (e) => {
+    console.log(e.target.value);
+    if (
+      e.target.value > 2017 &&
+      e.target.value < 2023 &&
+      onlyDigit.test(e.target.value) === true
+    ) {
+      setIsError(false);
+    } else {
+      setIsError(true);
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -75,11 +75,12 @@ const AcademicDetails = () => {
     d.mains_rank = rank.current.value;
     //
 
-    setFormData({ ...formData, d });
-    console.log(formData);
-    navigate(nextPage);
-    // if (!isError) {
-    // }
+    if (!isError) {
+      setFormData({ ...formData, d });
+      console.log(formData);
+      navigate(nextPage);
+    }
+
   };
 
   return (
@@ -111,7 +112,7 @@ const AcademicDetails = () => {
               size="lg"
               type="numeric"
               placeholder="Enter your 10th Marks"
-              // onChange={handleError}
+              onChange={handleError}
             />
           </Form.Group>
 
@@ -123,7 +124,7 @@ const AcademicDetails = () => {
               size="lg"
               type="numeric"
               placeholder="Enter your year of Passing"
-              // onChange={handleYOP}
+              onChange={handleYOP}
             />
           </Form.Group>
 
@@ -136,12 +137,12 @@ const AcademicDetails = () => {
               type="numeric"
               // pattern="[0-9]{7}"
               placeholder="Enter your 10th class roll number"
-              // onChange={(e) => {
-              //   onlyDigit.test(e.target.value) === true &&
-              //   e.target.value > 999999
-              //     ? setIsError(false)
-              //     : setIsError(true);
-              // }}
+              onChange={(e) => {
+                onlyDigit.test(e.target.value) === true &&
+                e.target.value > 999999 && e.target.value < 9999999
+                  ? setIsError(false)
+                  : setIsError(true);
+              }}
             />
           </Form.Group>
         </Row>
@@ -170,7 +171,7 @@ const AcademicDetails = () => {
               size="lg"
               type="numeric"
               placeholder="Enter your 12th Marks"
-              // onChange={handleError}
+              onChange={handleError}
             />
           </Form.Group>
 
@@ -183,7 +184,7 @@ const AcademicDetails = () => {
               type="numeric"
               // min={"2000"}
               placeholder="Enter your year of Passing"
-              // onChange={handleYOP}
+              onChange={handleYOP}
             />
           </Form.Group>
 
@@ -196,12 +197,12 @@ const AcademicDetails = () => {
               type="numeric"
               // pattern="[0-9]{7}"
               placeholder="Enter your 12th class roll number"
-              // onChange={(e) => {
-              //   onlyDigit.test(e.target.value) === true &&
-              //   e.target.value > 999999
-              //     ? setIsError(false)
-              //     : setIsError(true);
-              // }}
+              onChange={(e) => {
+                onlyDigit.test(e.target.value) === true &&
+                e.target.value > 999999 && e.target.value < 9999999
+                  ? setIsError(false)
+                  : setIsError(true);
+              }}
             />
           </Form.Group>
         </Row>
@@ -216,12 +217,12 @@ const AcademicDetails = () => {
               type="numeric"
               // pattern="[0-9]{12}"
               placeholder="Enter your JEE Application Number"
-              // onChange={(e) => {
-              //   onlyDigit.test(e.target.value) === true &&
-              //   e.target.value > 99999999999
-              //     ? setIsError(false)
-              //     : setIsError(true);
-              // }}
+              onChange={(e) => {
+                onlyDigit.test(e.target.value) === true &&
+                e.target.value > 99999999999 && e.target.value < 999999999999
+                  ? setIsError(false)
+                  : setIsError(true);
+              }}
             />
           </Form.Group>
 
@@ -233,22 +234,22 @@ const AcademicDetails = () => {
               size="lg"
               type="numeric"
               placeholder="Enter your JEE Mains Rank"
-              // onChange={(e) => {
-              //   onlyDigit.test(e.target.value) === true &&
-              //   e.target.value < 1000000
-              //     ? setIsError(false)
-              //     : setIsError(true);
-              // }}
+              onChange={(e) => {
+                onlyDigit.test(e.target.value) === true &&
+                e.target.value < 1000000
+                  ? setIsError(false)
+                  : setIsError(true);
+              }}
             />
           </Form.Group>
         </Row>
-        {/* <Row>
+        <Row>
           <Form.Text className="text-danger">
             {isError && "Error! Percentage Must be between 0 and 100. Year of Passing must be between 2017 and 2023."}
             <br/>
             {isError && "Roll Nos must be of 7 digits. Application No. should be 12 digits"}
           </Form.Text>
-        </Row> */}
+        </Row>
 
         <Button className= "m-3" size="lg" variant="danger" type="submit">
           Submit

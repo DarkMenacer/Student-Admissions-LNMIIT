@@ -12,7 +12,8 @@ import { Personaldetails } from "../../Classes/Personaldetails";
 const PersonalDetails = () => {
   const [[progress, setProgress], [formData, setFormData]] = useOutletContext();
   const navigate = useNavigate();
-  const [isError, setIsError] = useState(false);
+  const [isNameError, setIsNameError] = useState(false);
+  const [isZipError, setIsZipError] = useState(false);
   const location = useLocation();
   //Use Ref Hooks
   const firstName = useRef(null);
@@ -32,34 +33,32 @@ const PersonalDetails = () => {
   const a = new Personaldetails();
   let applicantObjectArray = [];
 
-  // const handleError = (e) => {
-  //   console.log(onlyTextPattern.test(e.target.value));
-  //   if (
-  //     onlyTextPattern.test(e.target.value) === true
-  //     // zipCodePattern.test(e.target.value) === true
-  //   ) {
-  //     setIsError(false);
-  //   } else {
-  //     setIsError(true);
-  //   }
-  // };
+  const handleNameError = (e) => {
+    console.log(onlyTextPattern.test(e.target.value));
+    if (
+      onlyTextPattern.test(e.target.value) === true
+    ) {
+      setIsNameError(false);
+    } else {
+      setIsNameError(true);
+    }
+  };
 
-  // const handleZipError = (e) => {
-  //   console.log(zipCodePattern.test(e.target.value));
-  //   if (
-  //     // onlyTextPattern.test(e.target.value) === true
-  //     zipCodePattern.test(e.target.value) === true
-  //   ) {
-  //     setIsError(false);
-  //   } else {
-  //     setIsError(true);
-  //   }
-  // };
+  const handleZipError = (e) => {
+    console.log(zipCodePattern.test(e.target.value));
+    if (
+      zipCodePattern.test(e.target.value) === true
+    ) {
+      setIsZipError(false);
+    } else {
+      setIsZipError(true);
+    }
+  };
 
   const handleSubmit = (e) => {
     // fetch(`/for_store?fname=${firstName.current.value}&mname=${middleName.current.value}`)
     e.preventDefault();
-    if (!isError) {
+    if ((!isNameError && !isZipError)) {
       setProgress(progress + 20);
 
       //Use Ref Hooks
@@ -92,7 +91,7 @@ const PersonalDetails = () => {
               size="lg"
               type="text"
               placeholder="Enter Your First Name"
-              // onChange={(e) => handleError(e)}
+              onChange={(e) => handleNameError(e)}
             />
           </Form.Group>
 
@@ -103,7 +102,7 @@ const PersonalDetails = () => {
               size="lg"
               type="text"
               placeholder="Enter Your Middle Name"
-              // onChange={(e) => handleError(e)}
+              // onChange={(e) => handleNameError(e)}
             />
           </Form.Group>
 
@@ -114,7 +113,7 @@ const PersonalDetails = () => {
               size="lg"
               type="text"
               placeholder="Enter Your Last Name"
-              // onChange={(e) => handleError(e)}
+              onChange={(e) => handleNameError(e)}
             />
           </Form.Group>
         </Row>
@@ -127,7 +126,7 @@ const PersonalDetails = () => {
               ref={fatherName}
               size="lg"
               placeholder="Please Enter your Father's Full Name"
-              // onChange={(e) => handleError(e)}
+              onChange={(e) => handleNameError(e)}
             />
           </Form.Group>
         </Row>
@@ -157,13 +156,13 @@ const PersonalDetails = () => {
               ref={pin}
               size="lg"
               placeholder="Please Enter your PINCODE"
-              // onChange={(e) => handleZipError(e)}
+              onChange={(e) => handleZipError(e)}
             />
           </Form.Group>
-          {/* <Form.Text className="text-danger">
-            {isError &&
+          <Form.Text className="text-danger">
+            {(isNameError || isZipError) &&
               "Error! Note - Name must not contain characters other than alphabets and Zip Code must be of 6-digits"}
-          </Form.Text> */}
+          </Form.Text>
         </Row>
         <Button size="lg" variant="danger" type="submit">
           Submit

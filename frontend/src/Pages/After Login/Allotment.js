@@ -16,7 +16,8 @@ const Allotment = () => {
     drop: false,
   });
   const [branch, setBranch] = useState("");
-  const [waiting, setWaiting] = useState();
+  const [waiting, setWaiting] = useState({});
+  const [noRound, setNoRound] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -74,43 +75,39 @@ const Allotment = () => {
       // console.log(isDisabled);
     } else if (status == -1) {
       //nothing
-      //Disable All Buttons Except Drop
-      const {branch, wait} = pref_details.map(pref => {
+      //Create Waiting List ->
+      pref_details.forEach((pref) => {
         const branch = getString(pref.unnest);
         const wait = getwait(pref.unnest);
-        return {branch, wait}
-        // setWaiting(...waiting, {[branch] : wait});
-
-        // console.log(waiting);
+        if(wait == 10000){
+          setNoRound(true);
+        }
+        console.log(`${branch} -> ${wait}`);
+        setWaiting((waiting) => ({ ...waiting, [branch]: wait }));
       });
 
-      // console.log(waiting)
-
-      setIsDisabled({
-        ...isDisabled,
-        freeze: true,
-        hold: true,
-        float: true,
-      });
+      //Disable All Buttons Except Drop
+      setIsDisabled({ ...isDisabled, freeze: true, hold: true, float: true });
     } else {
       console.log(pref_details);
-      // pref_details.every(pref => {
-      //   let wait = getwait(pref.unnest);
-      //   if(wait == 0){
-      //     return false;
-      //   }else{
-      //     setWaiting(wait);
-      //     return true;
-      //   }
-      // });
+      //Create Waiting List ->
+      pref_details.every((pref) => {
+        const branch = getString(pref.unnest);
+        const wait = getwait(pref.unnest);
+        if (wait == 0) {
+          return false;
+        } else {
+          setWaiting((waiting) => ({ ...waiting, [branch]: wait }));
+          return true;
+        }
+      });
       setAlloted(true);
       setBranch(branches[status - 1]);
     }
 
-    if(on_hold == true){
-      setIsDisabled({...isDisabled, float : true});
+    if (on_hold == true) {
+      setIsDisabled({ ...isDisabled, float: true });
     }
-
   }, []);
 
   const handleClick = (e) => {
@@ -125,43 +122,57 @@ const Allotment = () => {
     }).then((res) => {
       console.log(res);
     });
-    
+
     if (val == 3) {
-      alert("You've chosen to freeze the current seat...redirecting to fee payment");
+      alert(
+        "You've chosen to freeze the current seat...redirecting to fee payment"
+      );
       navigate(payFees);
     } else if (val == 0) {
       alert(
         "You have been dropped out of the college! Refund process will start soon"
-        );
-        navigate(home);
-      }else if(val == 2){
-        alert("You've chosen to hold the current seat...redirecting to fee payment");
-        navigate(payFees);
+      );
+      navigate(home);
+    } else if (val == 2) {
+      alert(
+        "You've chosen to hold the current seat...redirecting to fee payment"
+      );
+      navigate(payFees);
     }
   };
 
   return (
     <div>
-      <h1>Seat Allotment Process</h1>
+      <h1 className="allotment_title m-3">Alloted Seat Status</h1>
 
       <div className="allotment-container">
         <div className="allotment-title">
           {alloted == true
             ? `Congratulations! You have been alloted the \n
               ${branch}`
-            : `You have not been alloted any branch yet`}
+            : `You have not been alloted any branch yet`} <br/>
 
-              <div>Waiting List is - <br /> 
+          {status == 0 ? (
+            <div>You have been alloted the first Preference!</div>
+          ) : (
+            noRound == false ? (<div>
+              <br />
               {/* <h1>{waiting}</h1> */}
-              {console.log()}
+              {/* {console.log(waiting)} */}
               <li>
-                {
-                  Object.keys(pref_details).map((waitList, key) => {
-                    return (<ul key={key}>{"Waiting for " + getString(pref_details[waitList].unnest) + " is  " + getwait(pref_details[waitList].unnest)}</ul>)
-                  })
-                }
+                {Object.keys(waiting).map((waitList, key) => {
+                  return (
+                    <ul key={key}>
+                      {"Waiting for the Branch ' " +
+                        waitList +
+                        " ' is -: " +
+                        waiting[waitList]}
+                    </ul>
+                  );
+                })}
               </li>
-              </div>
+            </div>) : `Wait for the rounds to happen!`
+          )}
         </div>
 
         <Button

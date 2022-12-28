@@ -5,8 +5,20 @@
   margin: auto;
 }
 
+.allotment_title{
+  text-align: center;
+}
+
 .allotment-container > button {
   margin: 1rem;
+}
+
+.details_btn{
+  margin: 2rem;
+}
+
+.details_btn_container{
+  border: 2px solid black;
 }
 
 .allotment-title {

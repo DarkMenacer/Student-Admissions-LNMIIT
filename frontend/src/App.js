@@ -66,6 +66,7 @@ function App() {
         </Route>
 
         <Route path="/admin/">
+          <Route path="login" element={<AdminLogin />} />
           <Route path="home" element={<AdminHome />} />
         </Route>
 

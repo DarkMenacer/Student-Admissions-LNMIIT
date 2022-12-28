@@ -1,4 +1,4 @@
-id,percentile,prefs,status,on_hold
+id,mains_rank,prefs,status,on_hold
 1,10,"{""(CSE,10000)"",""(CCE,10000)"",""(ECE,10000)""}",-1,false
 10,100,"{""(CSE,10000)"",""(MME,10000)"",""(ECE,10000)""}",-1,false
 2,20,"{""(CSE,10000)"",""(ECE,10000)"",""(MME,10000)""}",-1,false

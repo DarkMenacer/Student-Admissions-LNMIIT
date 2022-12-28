@@ -10,7 +10,6 @@ const Drop = (applicant, branches) => {
         else{
             branch_alloted = branches.find((b) => {return b.status == applicant.status})
         }
-        console.log(branch_alloted)
         branch_alloted.seats++;
     }
     applicant.prefs = []
@@ -109,6 +108,6 @@ export const PostAllotment = async(applicant, branches, round_no, choice) => {
     })
 
     await pool.query("DELETE FROM applicants WHERE id = ($1);", [applicant.id]);
-    const {text, values} = brute_force(applicant.id, applicant.percentile, applicant.prefs, applicant.status, applicant.on_hold)
+    const {text, values} = brute_force(applicant.id, applicant.mains_rank, applicant.prefs, applicant.status, applicant.on_hold)
     await pool.query(text, values)
 }

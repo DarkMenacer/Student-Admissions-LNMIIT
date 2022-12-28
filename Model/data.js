@@ -17,14 +17,14 @@ const getstring = (pref) => {
 export const retrieveData = async(applicants,branches) => {
     
     //Applicants
-    const details = await pool.query("SELECT id, percentile, status, on_hold FROM applicants ORDER BY percentile;")
+    const details = await pool.query("SELECT id, mains_rank, status, on_hold FROM applicants ORDER BY mains_rank;")
     for(let a = 0; a < details.rowCount; ++a){
         const pref_details = await pool.query("SELECT UNNEST(prefs) FROM applicants WHERE id = ($1);",[a+1])
         let pref_array = []
         for(let i=0; i < pref_details.rowCount; ++i){
             pref_array.push(new Preference(getstring(pref_details.rows[i].unnest),getwait(pref_details.rows[i].unnest)))
         }
-        let p = new Applicant(details.rows[a].id,details.rows[a].percentile,pref_array,details.rows[a].status,details.rows[a].on_hold)
+        let p = new Applicant(details.rows[a].id,details.rows[a].mains_rank,pref_array,details.rows[a].status,details.rows[a].on_hold)
         applicants.push(p)
     }
 

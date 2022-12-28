@@ -33,7 +33,7 @@ export const pool = new Pool(
 //module.exports = pool
 
 /*
-INSERT INTO "public"."applicants" ("id", "percentile", "prefs", "status", "on_hold") VALUES
+INSERT INTO "public"."applicants" ("id", "mains_rank", "prefs", "status", "on_hold") VALUES
 (1, 100, '{"(CSE,100)","(CCE,100)","(ECE,100)"}', -1, 'f'),
 (2, 90, '{"(CSE,100)","(ECE,100)","(MME,100)"}', -1, 'f'),
 (3, 80, '{"(CCE,100)","(CSE,100)","(MME,100)"}', -1, 'f'),
@@ -45,7 +45,7 @@ INSERT INTO "public"."applicants" ("id", "percentile", "prefs", "status", "on_ho
 (9, 20, '{"(CCE,100)","(CSE,100)","(ECE,100)"}', -1, 'f'),
 (10, 10, '{"(CSE,100)","(MME,100)","(ECE,100)"}', -1, 'f');
 
-INSERT INTO applicants(id, percentile, prefs, status, on_hold) VALUES ( 1, 100, ARRAY [('CSE', 100), ('CCE', 100), ('ECE', 100)]:: pref[], -1, false) 
+INSERT INTO applicants(id, mains_rank, prefs, status, on_hold) VALUES ( 1, 100, ARRAY [('CSE', 100), ('CCE', 100), ('ECE', 100)]:: pref[], -1, false) 
 
 INSERT INTO "public"."branches" ("id", "seats", "status", "wl_no") VALUES
 ('CCE', 1, 2, 1),

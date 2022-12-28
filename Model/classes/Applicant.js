@@ -1,7 +1,7 @@
 export class Applicant {
-    constructor(id, percentile, prefs, status, on_hold){
+    constructor(id, mains_rank, prefs, status, on_hold){
             this.id = id 
-            this.percentile = percentile
+            this.mains_rank = mains_rank
             this.prefs = prefs
             this.status = status
             this.on_hold = on_hold

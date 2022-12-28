@@ -44,7 +44,7 @@ const Allot_Seat = (applicant, branches) => {
 };
 
 export const Round = async (applicants, branches) => {
-  //Need to sort applicants by percentile before calling this function
+  //Need to sort applicants by mains_rank before calling this function
   await applicants.map((applicant) =>
     Allot_Seat(applicant, branches)
   );
@@ -74,7 +74,7 @@ export const Round = async (applicants, branches) => {
     }
 
     await pool.query("DELETE FROM applicants WHERE id = ($1);", [applicant.id]);
-    const {text, values} = brute_force(applicant.id, applicant.percentile, applicant.prefs, applicant.status, applicant.on_hold)
+    const {text, values} = brute_force(applicant.id, applicant.mains_rank, applicant.prefs, applicant.status, applicant.on_hold)
     await pool.query(text, values).then(()=>{
       console.log(`${applicant.id} has been updated\n`)
     })

@@ -1,6 +1,7 @@
 import React from "react";
 import Button from "react-bootstrap/Button";
 import { useState } from "react";
+import "./AdminHome.css"
 
 const AdminHome = () => {
   
@@ -21,6 +22,14 @@ const AdminHome = () => {
         setShowResult([...showResult, data]);
       });
   };
+  const resetFetch = async () => {
+    await fetch(`/resetRequest`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    })
+  };
   const handleRounds = async () => {
     console.log("Handle Rounds Function!");
     setGetResults(false);
@@ -36,29 +45,44 @@ const AdminHome = () => {
     // setShowResult([...showResult, results]);
   };
 
+  const handleReset = async () => {
+    console.log("Calling fetch for reset");
+    setGetResults(false);
+    setShowResult([]);
+    await resetFetch();
+  }
+
   return (
-    <div>
-      <h1 className="m-3">Welcome to the Admin Home Page</h1>
-      <h3 className="m-3">Click the Button to Simulate Rounds!</h3>
-      <Button className="m-3" size="lg" variant="danger" onClick={handleRounds}>
-        Simulate Rounds
-      </Button>
-      <Button className="m-3" size="lg" variant="danger" onClick={handleResults}>
-        Get Results
-      </Button>
-      {
-        getResults === true ? 
-        <div>Results are - <br /> 
-        <li>
-          {showResult[showResult.length - 1].map((result, key) => {
-            return (<ul key={key}>{result}</ul>)
-          })}
-        </li>
+    <>
+      <div className="parent_AdminHome">
+          <h1 className="m-3 admin_heading">Welcome to the Admin Home Page</h1>
+        <div className="content_AdminHome">
+
+          <Button className="m-3" size="lg" variant="danger" onClick={handleRounds}>
+            Simulate Rounds
+          </Button>
+          
+          <Button className="m-3" size="lg" variant="danger" onClick={handleResults}>
+            Show results
+          </Button>
+          <div>{
+            getResults === true ? 
+            <div>Results are - <br /> 
+            <li>
+              {showResult[showResult.length - 1].map((result, key) => {
+                return (<ul key={key}>{result}</ul>)
+              })}
+            </li>
+            </div>
+            : "To display results, first click on Simulate Rounds and then Show Results"
+          }</div>
+
         </div>
-        : "Click on Button to show Results"
-      }
-      
-    </div>
+        <Button className="m-3" size="lg" variant="danger" onClick={handleReset}>
+          Reset Data
+        </Button>
+      </div>
+    </>
   );
 };
 

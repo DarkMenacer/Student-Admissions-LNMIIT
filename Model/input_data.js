@@ -1,85 +1,4 @@
--- -------------------------------------------------------------
--- TablePlus 5.1.0(468)
---
--- https://tableplus.com/
---
--- Database: studentadmissions
--- Generation Time: 2022-12-22 14:48:56.3590
--- -------------------------------------------------------------
-
-
--- This script only contains the table creation statements and does not fully represent the table in the database. It's still missing: indices, triggers. Do not use it as a backup.
-
--- Table Definition
-CREATE TABLE "public"."academicdetails" (
-    "id" text NOT NULL,
-    "board_10" text,
-    "percentage_10" float4,
-    "yop_10" int4,
-    "rollno_10" int4,
-    "board_12" text,
-    "percentage_12" float4,
-    "yop_12" int4,
-    "rollno_12" int4,
-    "application_no" int8,
-    "mains_rank" int4,
-    PRIMARY KEY ("id")
-);
-
--- This script only contains the table creation statements and does not fully represent the table in the database. It's still missing: indices, triggers. Do not use it as a backup.
-
-CREATE TYPE pref AS (dsp CHAR(3), waiting INT);
--- Table Definition
-CREATE TABLE "public"."applicants" (
-    "id" text NOT NULL,
-    "mains_rank" float4,
-    "prefs" _pref,
-    "status" int4,
-    "on_hold" bool,
-    PRIMARY KEY ("id")
-);
-
--- This script only contains the table creation statements and does not fully represent the table in the database. It's still missing: indices, triggers. Do not use it as a backup.
-
--- Table Definition
-CREATE TABLE "public"."branches" (
-    "id" bpchar(3) NOT NULL,
-    "seats" int4,
-    "status" int4,
-    "wl_no" int4,
-    PRIMARY KEY ("id")
-);
-
--- This script only contains the table creation statements and does not fully represent the table in the database. It's still missing: indices, triggers. Do not use it as a backup.
-
--- Table Definition
-CREATE TABLE "public"."personaldetails" (
-    "id" text NOT NULL,
-    "first_name" text,
-    "middle_name" text,
-    "last_name" text,
-    "father_name" text,
-    "address1" text,
-    "address2" text,
-    "zip" int4,
-    PRIMARY KEY ("id")
-);
-
--- This script only contains the table creation statements and does not fully represent the table in the database. It's still missing: indices, triggers. Do not use it as a backup.
-
--- Sequence and defined type
-CREATE SEQUENCE IF NOT EXISTS signup_id_seq;
-
--- Table Definition
-CREATE TABLE "public"."signup" (
-    "id" int4 NOT NULL DEFAULT nextval('signup_id_seq'::regclass),
-    "email_id" text,
-    "phone_no" int8,
-    "password" text,
-    PRIMARY KEY ("id")
-);
-
-INSERT INTO "public"."academicdetails" ("id", "board_10", "percentage_10", "yop_10", "rollno_10", "board_12", "percentage_12", "yop_12", "rollno_12", "application_no", "mains_rank") VALUES
+export const data = `INSERT INTO "public"."academicdetails" ("id", "board_10", "percentage_10", "yop_10", "rollno_10", "board_12", "percentage_12", "yop_12", "rollno_12", "application_no", "mains_rank") VALUES
 ('1', 'CBSE', 135351, 315531, 135531, 'ISC', 135531, 135531, 135351, 4343131, 10),
 ('10', 'CBSE', 13232, 321231, 12231, 'CBSE', 321123, 123312, 321321, 123231231, 100),
 ('2', 'CBSE', 135351, 351315, 315351, 'CBSE', 135, 364, 63634, 4374774, 20),
@@ -134,4 +53,4 @@ INSERT INTO "public"."signup" ("id", "email_id", "phone_no", "password") VALUES
 (8, 'a@i.com', 1234567890, '1'),
 (9, 'a@j.com', 1234567890, '1'),
 (10, 'a@k.com', 1234567890, '1');
-
+`

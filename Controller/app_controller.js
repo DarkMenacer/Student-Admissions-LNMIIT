@@ -3,10 +3,12 @@ import { retrieveData } from "../Model/data.js";
 import { PostAllotment } from "./PostAllotment.js";
 import { pool } from "../Model/database.js";
 import { brute_force } from "./brute_force.js";
+import { data } from "../Model/input_data.js";
 
 let applicants = [];
 let branches = [];
 let round_no = 0;
+const passkey = "Pranav-28051912-Raghav"
 
 const SignUp = async (req, res) => {
     console.log(req.body.data);
@@ -178,14 +180,16 @@ const EvaluateApplicantOptions = async (req, res) => {
 }
 
 const AdministratorFunction = async (req, res) => {
+    applicants = []
+    branches = []
     console.log("Order to simulate rounds has been received\n");
     try {
       await retrieveData(applicants, branches);
-      branches.map(async (branch) => (branch.wl_no = 1));
+      // branches.map(async (branch) => (branch.wl_no = 1));
       await Round(applicants, branches).then((result) => {
         res.json(result);
       });
-      round_no ++;
+      round_no++;
     } catch (error) {
       console.log(error);
     }
@@ -200,6 +204,22 @@ const Tutorial = async (req, res) => {
     //res.json(applicants[0])
 }
 
+const AdminLogin = (req, res) =>{
+    //console.log(req.body)
+    const password = req.body.data
+    if(password == passkey){res.json({flag: true})}
+    else{res.json({flag: false})}
+}
+
+const ResetDatabase = async (req, res) => {
+    const text = `TRUNCATE "public"."students"; TRUNCATE "public"."academicdetails"; TRUNCATE "public"."applicants";TRUNCATE "public"."branches";TRUNCATE "public"."personaldetails";TRUNCATE "public"."signup";`
+    await pool.query(text)
+    await pool.query(data)
+    console.clear()
+    console.log("Database reset sucessfully")
+    res.send("Database reset sucessfully")
+}
+
 export {
-    SignUp, Login, StoreData, EvaluateApplicantOptions, AdministratorFunction, Tutorial
+    SignUp, Login, StoreData, EvaluateApplicantOptions, AdministratorFunction, Tutorial, AdminLogin, ResetDatabase
 }
